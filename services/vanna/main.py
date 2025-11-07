@@ -32,9 +32,9 @@ else:
 # Connect to PostgreSQL database
 database_url = os.getenv('DATABASE_URL')
 if database_url:
-    # Convert to psycopg format for SQLAlchemy
-    if 'postgresql://' in database_url and 'postgresql+psycopg://' not in database_url:
-        database_url = database_url.replace('postgresql://', 'postgresql+psycopg://')
+    # Convert to psycopg2 format for SQLAlchemy
+    if 'postgresql://' in database_url and 'postgresql+psycopg2://' not in database_url:
+        database_url = database_url.replace('postgresql://', 'postgresql+psycopg2://')
     engine = create_engine(database_url)
 else:
     engine = None

@@ -18,6 +18,13 @@ const api = axios.create({
   },
 });
 
+const vannaApi = axios.create({
+  baseURL: VANNA_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 export const analyticsApi = {
   // Get overview statistics
   getStats: async (): Promise<Stats> => {
@@ -62,7 +69,7 @@ export const analyticsApi = {
 
   // Chat with data
   chatWithData: async (query: string) => {
-    const { data } = await api.post('/api/chat-with-data', { query });
+    const { data } = await vannaApi.post('/api/query', { question: query });
     return data;
   },
 };

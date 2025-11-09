@@ -19,7 +19,7 @@ Real-time analytics with interactive charts and key metrics at a glance.
 Ask questions in natural language and get instant SQL-powered insights.
 
 ### 📋 Invoice Management
-![Invoice Table](./screenshots/invoices.png)
+![Invoice Table](./screenshots/invoice.png)
 
 Comprehensive invoice tracking with search, sort, and filter capabilities.
 

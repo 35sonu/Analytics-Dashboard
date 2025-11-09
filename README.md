@@ -1,513 +1,290 @@
-# Analytics Dashboard - Production-Grade Full-Stack Application
+# 📊 AI-Powered Analytics Dashboard
 
-A comprehensive analytics dashboard with AI-powered natural language querying capabilities, built with Next.js, Express.js, PostgreSQL, and Vanna AI.
+A production-grade full-stack invoice analytics platform that transforms raw data into actionable insights using AI technology.
 
-![Dashboard Screenshot](docs/dashboard-preview.png)
+## 🚀 Live Demo
 
-## 🎯 Project Overview
+- **GitHub**: https://github.com/35sonu/Analytics-Dashboard
 
-This application consists of three main components:
+## ✨ Screenshots
 
-1. **Interactive Analytics Dashboard** - Real-time visualization of invoice and vendor data
-2. **Chat with Data** - AI-powered natural language interface for data analytics
-3. **RESTful API Backend** - Express.js API with PostgreSQL database
+### 📈 Dashboard Overview
+![Dashboard](./screenshots/dashboard.png)
 
-## 🚀 Features
+Real-time analytics with interactive charts and key metrics at a glance.
 
-### Analytics Dashboard
-- ✅ **Overview Cards**: Total Spend (YTD), Total Invoices, Documents Uploaded, Average Invoice Value
-- ✅ **Interactive Charts**: 
-  - Invoice Volume & Value Trend (Line Chart)
-  - Spend by Vendor (Top 10, Horizontal Bar Chart)
-  - Spend by Category (Pie Chart)
-  - Cash Outflow Forecast (Bar Chart)
-- ✅ **Invoices Table**: Searchable, sortable, and paginated table
-- ✅ **Real-time Data**: All metrics fetched dynamically from backend APIs
+### 💬 AI-Powered Chat Interface  
+![Chat with Data](./screenshots/chat.png)
 
-### Chat with Data
-- ✅ Natural language querying powered by Vanna AI + Groq LLM
-- ✅ SQL generation and execution
-- ✅ Results displayed in formatted tables
-- ✅ Example queries for quick start
-- ✅ Error handling and validation
+Ask questions in natural language and get instant SQL-powered insights.
 
-## 🏗️ Architecture
+### 📋 Invoice Management
+![Invoice Table](./screenshots/invoices.png)
 
-```
-analytics-dashboard/
-├── apps/
-│   ├── web/              # Next.js frontend (TypeScript + Tailwind + shadcn/ui)
-│   └── api/              # Express.js backend (TypeScript + Prisma)
-├── services/
-│   └── vanna/            # Vanna AI service (Python + FastAPI)
-├── data/
-│   └── Analytics_Test_Data.json
-└── docker-compose.yml
-```
+Comprehensive invoice tracking with search, sort, and filter capabilities.
+
+## ✨ Features
+
+### 🎯 Real-time Analytics Dashboard
+- Interactive overview cards with key metrics (Total Spend, Invoice Count, Documents, Average Value)
+- Beautiful data visualizations with Recharts
+- Multi-dimensional analysis with interactive charts
+- Responsive design with purple-themed UI
+
+### 🤖 AI-Powered Chat with Data
+- Ask questions in natural language
+- Automatic SQL generation using Groq AI (Llama 3.3 70B)
+- Instant results with formatted tables
+- View generated SQL queries for transparency
+- Example queries for quick start
+
+### 📊 Advanced Analytics
+- Invoice volume and value trends over time
+- Top 10 vendors by spend with cumulative distribution
+- Spend analysis by category (pie chart)
+- Cash outflow forecasting by due date ranges
+
+### 📑 Invoice Management
+- Searchable and sortable invoice table
+- Real-time data from PostgreSQL
+- Status tracking (Paid, Pending, Overdue)
+- Category-based organization
+- Pagination support
 
 ## 🛠️ Tech Stack
 
 ### Frontend
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
-- **UI Library**: shadcn/ui + TailwindCSS
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui (Radix UI primitives)
 - **Charts**: Recharts
-- **State Management**: React Hooks
 - **HTTP Client**: Axios
 
 ### Backend
-- **Runtime**: Node.js 18+
-- **Framework**: Express.js
-- **Language**: TypeScript
-- **Database**: PostgreSQL 15
+- **API**: Express.js
 - **ORM**: Prisma
-- **API Style**: REST
+- **Validation**: Zod
+- **Runtime**: Node.js 18+
+- **Database**: PostgreSQL (Supabase)
 
-### AI Layer
+### AI/ML
+- **LLM**: Groq AI (Llama 3.3 70B Versatile)
 - **Framework**: FastAPI (Python)
-- **AI Library**: Vanna AI
-- **LLM Provider**: Groq (Mixtral-8x7b-32768)
+- **NLP**: Natural language to SQL conversion
 - **Database Connector**: SQLAlchemy + psycopg2
 
-### DevOps
+### Infrastructure
 - **Monorepo**: Turborepo
-- **Containerization**: Docker + Docker Compose
-- **Deployment**: Vercel (Frontend + API), Render/Railway (Vanna AI)
+- **Package Manager**: npm workspaces
+- **Deployment**: Vercel (Frontend + Backend) + Render (AI Service)
+- **Database Hosting**: Supabase
 
-## 📋 Prerequisites
-
-- Node.js 18+ and npm
-- Python 3.11+
-- PostgreSQL 15+
-- Docker & Docker Compose (optional, for containerized setup)
-- Groq API Key ([Get one here](https://console.groq.com))
-
-## 🚀 Quick Start
-
-### Option 1: Local Development (Recommended for Development)
-
-#### 1. Clone the Repository
-```bash
-git clone <your-repo-url>
-cd analytics-dashboard
-```
-
-#### 2. Install Dependencies
-```bash
-# Install root dependencies
-npm install
-
-# Install frontend dependencies
-cd apps/web
-npm install
-
-# Install backend dependencies
-cd ../api
-npm install
-
-# Install Python dependencies
-cd ../../services/vanna
-pip install -r requirements.txt
-```
-
-#### 3. Set Up Environment Variables
-```bash
-# Copy example env file
-cp .env.example .env
-
-# Edit .env with your values
-# Required: DATABASE_URL, GROQ_API_KEY
-```
-
-#### 4. Set Up Database
-```bash
-cd apps/api
-
-# Generate Prisma client
-npm run db:generate
-
-# Run migrations
-npm run db:push
-
-# Seed database with sample data
-npm run db:seed
-```
-
-#### 5. Start Services
-
-**Terminal 1 - Database (if not using Docker)**
-```bash
-# Start PostgreSQL locally or use Docker
-docker run -d \
-  --name analytics_db \
-  -e POSTGRES_PASSWORD=postgres \
-  -e POSTGRES_DB=analytics_db \
-  -p 5432:5432 \
-  postgres:15-alpine
-```
-
-**Terminal 2 - Backend API**
-```bash
-cd apps/api
-npm run dev
-# API running on http://localhost:3001
-```
-
-**Terminal 3 - Vanna AI Service**
-```bash
-cd services/vanna
-
-# Train the model (first time only)
-python train.py
-
-# Start the service
-python main.py
-# Vanna AI running on http://localhost:8000
-```
-
-**Terminal 4 - Frontend**
-```bash
-cd apps/web
-npm run dev
-# Frontend running on http://localhost:3000
-```
-
-### Option 2: Docker Compose (Recommended for Production-like Setup)
-
-```bash
-# Set GROQ_API_KEY in .env file first
-export GROQ_API_KEY=your_groq_api_key
-
-# Start all services
-docker-compose up -d
-
-# Check logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
-
-Access the application:
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:3001
-- Vanna AI: http://localhost:8000
-- Database: localhost:5432
-
-## 📊 Database Schema
-
-### Entity Relationship Diagram
+## 📦 Project Structure
 
 ```
-┌─────────────┐       ┌──────────────┐       ┌──────────────┐
-│   Vendor    │       │   Invoice    │       │   Customer   │
-├─────────────┤       ├──────────────┤       ├──────────────┤
-│ id (PK)     │───┐   │ id (PK)      │   ┌───│ id (PK)      │
-│ name        │   └──<│ vendorId FK  │   │   │ name         │
-│ email       │       │ customerId FK│>──┘   │ email        │
-│ phone       │       │ invoiceNumber│       │ phone        │
-│ address     │       │ invoiceDate  │       │ address      │
-└─────────────┘       │ dueDate      │       └──────────────┘
-                      │ totalAmount  │
-                      │ status       │
-                      │ category     │
-                      └──────────────┘
-                            │ │
-                    ┌───────┘ └────────┐
-                    ▼                  ▼
-            ┌─────────────┐    ┌──────────────┐
-            │  LineItem   │    │   Payment    │
-            ├─────────────┤    ├──────────────┤
-            │ id (PK)     │    │ id (PK)      │
-            │ invoiceId FK│    │ invoiceId FK │
-            │ description │    │ paymentDate  │
-            │ quantity    │    │ amount       │
-            │ unitPrice   │    │ method       │
-            │ amount      │    │ reference    │
-            │ category    │    └──────────────┘
-            └─────────────┘
-```
-
-### Tables
-
-- **Vendor**: Stores vendor information
-- **Customer**: Stores customer information
-- **Invoice**: Main invoice records with status tracking
-- **LineItem**: Individual items within each invoice
-- **Payment**: Payment records linked to invoices
-
-## 🔌 API Documentation
-
-### Base URL
-- Development: `http://localhost:3001/api`
-- Production: `https://your-app.vercel.app/api`
-
-### Endpoints
-
-#### 1. Get Statistics
-```http
-GET /api/stats
-```
-
-**Response**:
-```json
-{
-  "totalSpend": 1234567.89,
-  "totalInvoices": 150,
-  "documentsUploaded": 145,
-  "averageInvoiceValue": 8230.45
-}
-```
-
-#### 2. Get Invoice Trends
-```http
-GET /api/invoice-trends
-```
-
-**Response**:
-```json
-[
-  {
-    "month": "2024-01",
-    "count": 25,
-    "total": 125000.50
-  }
-]
-```
-
-#### 3. Get Top 10 Vendors
-```http
-GET /api/vendors/top10
-```
-
-**Response**:
-```json
-[
-  {
-    "id": "vendor_123",
-    "name": "Acme Corp",
-    "total": 250000.00,
-    "invoiceCount": 45
-  }
-]
-```
-
-#### 4. Get Category Spend
-```http
-GET /api/invoice-trends/category
-```
-
-**Response**:
-```json
-[
-  {
-    "category": "Software",
-    "total": 150000.00
-  }
-]
-```
-
-#### 5. Get Cash Outflow Forecast
-```http
-GET /api/invoice-trends/cash-outflow
-```
-
-**Response**:
-```json
-[
-  {
-    "week": "2024-01-15",
-    "total": 45000.00
-  }
-]
-```
-
-#### 6. Get Invoices (with filters)
-```http
-GET /api/invoices?search=INV&status=paid&page=1&limit=10
-```
-
-**Query Parameters**:
-- `search`: Search by invoice number or vendor name
-- `status`: Filter by status (paid, pending, overdue, partial)
-- `page`: Page number (default: 1)
-- `limit`: Results per page (default: 50)
-- `sortBy`: Sort field (default: invoiceDate)
-- `order`: Sort order (asc/desc, default: desc)
-
-**Response**:
-```json
-{
-  "data": [...],
-  "total": 100,
-  "page": 1,
-  "limit": 10,
-  "totalPages": 10
-}
-```
-
-#### 7. Chat with Data
-```http
-POST /api/chat-with-data
-Content-Type: application/json
-
-{
-  "query": "What's the total spend in the last 90 days?"
-}
-```
-
-**Response**:
-```json
-{
-  "query": "What's the total spend in the last 90 days?",
-  "sql": "SELECT SUM(totalAmount) as total FROM Invoice WHERE ...",
-  "results": [
-    { "total": 450000.00 }
-  ],
-  "error": null
-}
-```
-
-## 🚢 Deployment
-
-### Frontend (Vercel)
-
-1. Push code to GitHub
-2. Import project in Vercel
-3. Configure environment variables:
-   - `NEXT_PUBLIC_API_BASE_URL`
-   - `NEXT_PUBLIC_APP_URL`
-4. Deploy
-
-### Backend API (Vercel)
-
-1. Create new Vercel project from `apps/api`
-2. Configure build settings:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-3. Add environment variables:
-   - `DATABASE_URL`
-   - `VANNA_API_BASE_URL`
-4. Deploy
-
-### Vanna AI Service (Render/Railway/Fly.io)
-
-**Render Example**:
-```bash
-# Install Render CLI
-npm install -g render
-
-# Deploy
-cd services/vanna
-render deploy
-```
-
-**Railway Example**:
-```bash
-# Install Railway CLI
-npm install -g railway
-
-# Deploy
-cd services/vanna
-railway up
-```
-
-### Database (Neon/Supabase/Railway)
-
-Use any PostgreSQL hosting service:
-- [Neon](https://neon.tech) - Serverless PostgreSQL
-- [Supabase](https://supabase.com) - PostgreSQL + extras
-- [Railway](https://railway.app) - Full-stack hosting
-
-## 🧪 Testing
-
-### Run Tests
-```bash
-# Frontend tests
-cd apps/web
-npm test
-
-# Backend tests
-cd apps/api
-npm test
-```
-
-### Manual Testing Checklist
-
-- [ ] Dashboard loads without errors
-- [ ] All overview cards display correct data
-- [ ] Charts render properly with real data
-- [ ] Invoice table search works
-- [ ] Invoice table pagination works
-- [ ] Chat interface sends queries
-- [ ] SQL is generated correctly
-- [ ] Results display in table format
-- [ ] Error handling works properly
-
-## 📁 Project Structure
-
-```
-analytics-dashboard/
 ├── apps/
-│   ├── web/                    # Next.js Frontend
+│   ├── web/                    # Next.js frontend
 │   │   ├── src/
-│   │   │   ├── app/           # Next.js App Router
-│   │   │   ├── components/    # React Components
-│   │   │   │   ├── ui/       # shadcn/ui components
-│   │   │   │   ├── charts/   # Chart components
-│   │   │   │   ├── dashboard.tsx
-│   │   │   │   ├── analytics-dashboard.tsx
-│   │   │   │   ├── chat-with-data.tsx
-│   │   │   │   └── invoices-table.tsx
-│   │   │   ├── lib/          # Utilities
-│   │   │   └── types/        # TypeScript types
-│   │   ├── public/
+│   │   │   ├── app/           # App router pages
+│   │   │   ├── components/    # React components
+│   │   │   ├── lib/           # API client & utilities
+│   │   │   └── types/         # TypeScript types
 │   │   └── package.json
-│   └── api/                   # Express.js Backend
+│   └── api/                    # Express.js backend
 │       ├── src/
-│       │   ├── routes/       # API Routes
-│       │   ├── scripts/      # Utility scripts
-│       │   └── index.ts      # Entry point
+│       │   ├── routes/        # API endpoints
+│       │   └── scripts/       # Database seeding
 │       ├── prisma/
-│       │   └── schema.prisma # Database schema
+│       │   └── schema.prisma  # Database schema
 │       └── package.json
 ├── services/
-│   └── vanna/                 # Vanna AI Service
-│       ├── main.py           # FastAPI app
-│       ├── train.py          # Training script
-│       ├── requirements.txt
-│       └── Dockerfile
-├── data/
-│   └── Analytics_Test_Data.json
-├── docker-compose.yml
+│   └── vanna/                  # AI service (FastAPI)
+│       ├── main.py
+│       └── requirements.txt
+├── screenshots/                # Project screenshots
 ├── turbo.json
 └── package.json
 ```
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- Python 3.11+
+- PostgreSQL 15+ (or Supabase account)
+- Groq API Key (free at https://console.groq.com)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/35sonu/Analytics-Dashboard.git
+cd Analytics-Dashboard
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Setup Backend API**
+```bash
+cd apps/api
+cp .env.example .env
+# Edit .env with your DATABASE_URL
+npx prisma generate
+npx prisma db push
+npm run db:seed
+```
+
+4. **Setup Frontend**
+```bash
+cd apps/web
+cp .env.example .env.local
+# Add: NEXT_PUBLIC_API_URL=http://localhost:3001
+# Add: NEXT_PUBLIC_VANNA_URL=http://localhost:8000
+```
+
+5. **Setup Vanna AI Service**
+```bash
+cd services/vanna
+cp .env.example .env
+# Add your DATABASE_URL and GROQ_API_KEY
+pip install -r requirements.txt
+```
+
+### Running Locally
+
+Run all services:
+
+```bash
+# Terminal 1 - Backend API
+cd apps/api
+npm run dev
+
+# Terminal 2 - Frontend
+cd apps/web
+npm run dev
+
+# Terminal 3 - Vanna AI
+cd services/vanna
+python main.py
+```
+
+Access the application:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001
+- **Vanna AI**: http://localhost:8000
+
+## 🌐 Deployment
+
+### Frontend & Backend (Vercel)
+
+1. Push code to GitHub
+2. Import repository to Vercel (create 2 projects)
+
+**Frontend Project:**
+- Root Directory: `apps/web`
+- Framework: Next.js
+- Environment Variables:
+  - `NEXT_PUBLIC_API_URL`: Your backend URL
+  - `NEXT_PUBLIC_VANNA_URL`: Your Vanna service URL
+
+**Backend Project:**
+- Root Directory: `apps/api`
+- Build Command: `npm run vercel-build`
+- Environment Variables:
+  - `DATABASE_URL`: Your PostgreSQL connection string
+
+### AI Service (Render)
+
+1. Create new Web Service on Render
+2. Connect GitHub repository
+3. Configure:
+   - Root Directory: `services/vanna`
+   - Build Command: `pip install -r requirements.txt`
+   - Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
+4. Environment Variables:
+   - `DATABASE_URL`: PostgreSQL connection
+   - `GROQ_API_KEY`: Your Groq API key
+   - `MODEL_NAME`: `llama-3.3-70b-versatile`
+
+## 📡 API Endpoints
+
+### Analytics API (Express.js)
+
+- `GET /api/stats` - Overview statistics
+- `GET /api/invoice-trends` - Invoice trends over time
+- `GET /api/vendors/top10` - Top 10 vendors by spend
+- `GET /api/invoice-trends/category` - Spend by category
+- `GET /api/invoice-trends/cash-outflow` - Cash outflow forecast
+- `GET /api/invoices` - List invoices with pagination and search
+
+### AI Service (FastAPI)
+
+- `POST /api/query` - Natural language to SQL conversion
+  ```json
+  {
+    "question": "What's the total spend in the last 90 days?"
+  }
+  ```
+- `GET /health` - Health check endpoint
+
+## 🎯 Key Features Explained
+
+### Natural Language Processing
+The chat interface uses Groq's Llama 3.3 70B model to:
+1. Understand natural language questions
+2. Generate PostgreSQL queries based on database schema
+3. Execute queries safely with proper error handling
+4. Format and return results in a user-friendly table
+
+### Database Schema
+Normalized relational design:
+- **Vendor** → **Invoice** (1:N)
+- **Customer** → **Invoice** (1:N)
+- **Invoice** → **LineItem** (1:N)
+- **Invoice** → **Payment** (1:N)
+
+### Performance Optimizations
+- Server-side data fetching with Next.js
+- Database connection pooling with Prisma
+- Optimized SQL queries with proper indexing
+- Efficient chart rendering with Recharts
+
 ## 🤝 Contributing
 
+Contributions are welcome! Please feel free to submit a Pull Request.
+
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
 ## 📝 License
 
-This project is licensed under the MIT License.
+MIT License - feel free to use this project for learning or commercial purposes.
+
+## 👨‍💻 Author
+
+**Sonu Kumar**
+- GitHub: [@35sonu](https://github.com/35sonu)
+- Project: [Analytics Dashboard](https://github.com/35sonu/Analytics-Dashboard)
 
 ## 🙏 Acknowledgments
 
-- [Next.js](https://nextjs.org/)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Vanna AI](https://vanna.ai/)
-- [Groq](https://groq.com/)
-- [Prisma](https://www.prisma.io/)
-
-## 📧 Contact
-
-For questions or support, please open an issue or contact [your-email@example.com]
+- [Groq AI](https://groq.com) for the powerful LLM API
+- [Supabase](https://supabase.com) for PostgreSQL hosting
+- [Vercel](https://vercel.com) for seamless deployment
+- [shadcn/ui](https://ui.shadcn.com) for beautiful components
+- [Recharts](https://recharts.org) for amazing data visualizations
 
 ---
 
-Built with ❤️ for the Analytics Internship Assignment
+⭐ If you found this project helpful, please give it a star on GitHub!
+
+🔗 **Live Demo**: [Coming Soon]
+📧 **Questions?**: Open an issue on GitHub
